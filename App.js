@@ -6,6 +6,7 @@ import MealDetailScreen from './screens/MealDetailScreen';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FavoritesScreen from './screens/FavoritesScreen';
 import { Ionicons } from '@expo/vector-icons';
+import FavoritesProvider from './store/context/favorites-context';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -46,39 +47,41 @@ const DrawerNavigator = () => {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: '#f3311e',
-          },
-          headerTintColor: '#fff',
-          contentStyle: {
-            backgroundColor: '#990922',
-          }
-        }}
-      >
-        <Stack.Screen
-          name="Drawer"
-          component={DrawerNavigator}
-          options={{
-            headerShown: false,
+    <FavoritesProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: {
+              backgroundColor: '#f3311e',
+            },
+            headerTintColor: '#fff',
+            contentStyle: {
+              backgroundColor: '#990922',
+            }
           }}
-        />
-        <Stack.Screen
-          name="Meals"
-          component={MealsScreen}
-        />
-        <Stack.Screen
-          name="MealDetail"
-          component={MealDetailScreen}
-          options={{
-            title: 'About the Meal',
-          }}
-        />
+        >
+          <Stack.Screen
+            name="Drawer"
+            component={DrawerNavigator}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Meals"
+            component={MealsScreen}
+          />
+          <Stack.Screen
+            name="MealDetail"
+            component={MealDetailScreen}
+            options={{
+              title: 'About the Meal',
+            }}
+          />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FavoritesProvider>
   );
 }
 
